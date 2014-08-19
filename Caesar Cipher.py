@@ -53,11 +53,17 @@ def crack(text):
     for i in range(0,26):
         possible.append(decrypt(text,i))
 
+    startingPunctuation = "(&\"'/#{[" 
+    endingPunctuation = "),./:;}]\"'" 
     for candidate in possible:
         a = candidate.split()
         matches = 0
         length = len(a)
         for word in a:
+            while word[0] in startingPunctuation:
+                word = word[1:]
+            while word[-1] in endingPunctuation:
+                word = word[:-1]
             if word in words:
                 matches += 1
 
